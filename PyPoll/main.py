@@ -31,7 +31,9 @@ with open(election_file_path) as election_file:
             # add to list if they haven't been added
             candidates.append(candidate)
             candidate_votes.append(1) #add the first vote
-
+        else: # candidate is in list
+            candidate_id = candidates.index(candidate)
+            candidate_votes[candidate_id] +=1
 
 # done reading the file
 # add to total votes
@@ -40,6 +42,9 @@ print('Election Results')
 print('-------------------------')
 print(f'Total Votes: {total_votes}')
 print('-------------------------')
+current_candidate_votes = candidate_votes[candidates.index(candidate)]
+for candidate in candidates:
+    print(f'{candidate}: {current_candidate_votes / total_votes}% ({candidate_votes[candidates.index(candidate)]})')
 
 print(candidates, "candidates")
 print(candidate_votes)
