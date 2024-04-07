@@ -1,66 +1,53 @@
 import csv
 
 #set variables
-header = []
+
+month = []
+revenue = []
+revenue_change = [] 
+monthly_change = []
 budget_file_path = "Resources/budget_data.csv"
-total_months = 0
-current_month_total = 0
-previous_month_total = 0
-total_profits_losses = 0
-total_change = 0
-changes = []
-average_change = 0
-greatest_increase = 0
-greatest_decrease = 0
+
 
 # open data file
 with open(budget_file_path) as budget_file:
     csv_file = csv.reader(budget_file)
     header = next(csv_file)
-    #read a row in the file
+    # read a row in the file
+    # calculate total months
     for row in csv_file:
-        # Total number of months included in the dataset
-        total_months +=1
-        # Net total amount of "Profits/Losses" over the entire period
-        current_month_total = int(row[1])
-        # calculate average change over entire period
-        if total_months > 1:
-            monthly_change = current_month_total - previous_month_total
-            changes.append(monthly_change)
-            total_change += monthly_change
-            # convert total_change value to currency
-            average_change = total_change / len(changes)
-            # convert average_change to currency
-        
-            # find greatest increase in profits
-            
-        if total_profits_losses > 1:
-            greatest_increase = int(row[1])
-            print(max(greatest_increase))
+        month.append(row[0])
+        revenue.append(row[1])
 
-        # find greatest decrease in profits
-        if total_profits_losses > 1:
-            greatest_decrease = int(row[1])
-            print(min(greatest_decrease))
+    # calculate net revenue over entire period
+    # use map function to pull data from each row
+    # use int to convert base=10 date to integer
+    revenue_int = map(int,revenue)
+    net_revenue = (sum(revenue_int))
 
+     # calculate average change over entire period
+    current_month = 0
+    for current_month in range(len(revenue) - 1):
+        profit_loss = int(revenue[current_month+1]) - int(revenue[current_month])
+        revenue_change.append(profit_loss)
+    Total = sum(revenue_change)
+    monthly_change = Total / len(revenue_change)
+    
+    # calculate greatest increase in profits over entire period
+    profit_increase = max(revenue_change)
+    max_increase = revenue_change.index(profit_increase)
+    month_increase = month[max_increase+1]
+    
+    # calculate greatest decrease in profits over entire period
+    # print date and amount
+    profit_decrease = min(revenue_change)
+    max_decrease = revenue_change.index(profit_decrease)
+    month_decrease = month[max_decrease+1]
 
-
-# Greatest increase in profits over the period
-    #date and amount
-#Greatest decrease in profits over the period
-    #date and amount
-
-print('Financial Analysis')
-print('----------------------------')
-print(f'Total Months: {total_months}')
-print(f'Total: {total_change}')
-print(f'Average Change: {average_change}')
-
-
-# Financial Analysis
-# ----------------------------
-# Total Months: 86
-# Total: $22564198
-# Average Change: $-8311.11
-# Greatest Increase in Profits: Aug-16 ($1862002)
-# Greatest Decrease in Profits: Feb-14 ($-1825558)
+print("Financial Analysis")
+print("----------------------------")
+print(f'Total Months: {len(month)}')
+print(f'Total: ${net_revenue}')
+print(f'Average Change: ${monthly_change}')
+print(f'Greatest Increase in Profits: {month_increase} (${profit_increase})')
+print(f'Greatest Decrease in Profits: {month_decrease} (${profit_decrease})')
