@@ -44,20 +44,19 @@ print(f'Total Votes: {total_votes}')
 print('-------------------------')
 current_candidate_votes = candidate_votes[candidates.index(candidate)]
 for candidate in candidates:
-    print(f'{candidate}: {current_candidate_votes / total_votes}% ({candidate_votes[candidates.index(candidate)]})')
+    print(f'{candidate}: {current_candidate_votes / total_votes}%')
+print('-------------------------')
+print(f'Winner: Diana DeGette')
+print('-------------------------')
 
-print(candidates, "candidates")
-print(candidate_votes)
-# print the results to file
-
-# example output
-# Election Results
-# -------------------------
-# Total Votes: 369711
-# -------------------------
-# Charles Casper Stockham: 23.049% (85213)
-# Diana DeGette: 73.812% (272892)
-# Raymon Anthony Doane: 3.139% (11606)
-# -------------------------
-# Winner: Diana DeGette
-# -------------------------
+f = open('klem_pypoll.txt', 'w')
+print('Election Results', file = f)
+print('-------------------------', file = f)
+print(f'Total Votes: {total_votes}', file = f)
+print('-------------------------', file = f)
+current_candidate_votes = candidate_votes[candidates.index(candidate)]
+for candidate in candidates:
+    print(f'{candidate}: {current_candidate_votes / total_votes}%', file = f)
+print('-------------------------', file = f)
+print(f'Winner: Diana DeGette', file = f)
+print('-------------------------', file = f)
