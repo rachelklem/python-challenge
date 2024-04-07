@@ -51,3 +51,13 @@ print(f'Total: ${net_revenue}')
 print(f'Average Change: ${monthly_change}')
 print(f'Greatest Increase in Profits: {month_increase} (${profit_increase})')
 print(f'Greatest Decrease in Profits: {month_decrease} (${profit_decrease})')
+
+f = open('klem_pybank.txt', 'w')
+
+print('Financial Analysis', file=f)
+print('----------------------------', file=f)
+print(f'Total Months: {len(month)}', file=f)
+print(f'Total: ${net_revenue}', file=f)
+print(f'Average Change: ${monthly_change}', file=f)
+print(f'Greatest Increase in Profits: {month_increase} (${profit_increase})', file=f)
+print(f'Greatest Decrease in Profits: {month_decrease} (${profit_decrease})', file=f)
